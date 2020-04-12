@@ -58,8 +58,10 @@ function iniciarJogo() {
     if(direction == "down") snakeY += box;
 
     if(snakeX != food.x || snakeY != food.y){
+        // caso a posição da cobra seja diferente da comida, ela continua em movimento (removendo um item do array).
         snake.pop();
     } else {
+        // caso contrário, não remove o item do array (aumenta de tamanho) e a comida muda para outra posição aleatória
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
     }
