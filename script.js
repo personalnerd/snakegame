@@ -2,11 +2,12 @@ let canvas = document.getElementById('snake');
 let context = canvas.getContext('2d');
 let box = 32;
 let snake = [];
+// cobra criada no meio do canvas
 snake[0] = {
     x: 8 * box,
     y: 8 * box
 }
-let direction = "right";
+let direction; // jogo inicia parado, só começa a movimentar quando o jogador pressiona uma seta de direção
 let food = {
     x: Math.floor(Math.random() * 15 + 1) * box,
     y: Math.floor(Math.random() * 15 + 1) * box
@@ -41,11 +42,11 @@ function update(event){
 
 function iniciarJogo() {
 
-    // direções
-    if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
-    if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
-    if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
-    if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
+    // ao chegar no fim do canvas, aparece do outro lado (corrigido bug que deixava a cobra passeando fora do canvas)
+    if(snake[0].x > 15 * box && direction !== "left") snake[0].x = 0;
+    if(snake[0].x < 0 && direction != "right") snake[0].x = 15 * box;
+    if(snake[0].y > 15 * box && direction != "up") snake[0].y = 0;
+    if(snake[0].y < 0 && direction != "down") snake[0].y = 15 * box;
 
     //se a posição 0 (cabeça) se chocar com o corpo, ela para o jogo
     for (i = 1; i < snake.length; i++){
@@ -59,16 +60,22 @@ function iniciarJogo() {
     criarCobrinha();
     drawFood();
 
+    // posição da cabeça da cobrinha
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
+    // movimento da cobrinha
     if(direction == "right") snakeX += box;
     if(direction == "left") snakeX -= box;
     if(direction == "up") snakeY -= box;
-    if(direction == "down") snakeY += box;
+    if(direction == "down") snakeY += box;    
 
+    // crescimento da cobrinha
     if(snakeX != food.x || snakeY != food.y){
-        // caso a posição da cobra seja diferente da comida, ela continua em movimento (removendo um item do array).
+        /**
+         * caso a posição da cobra seja diferente da comida,
+         * ela continua em movimento (removendo um item do array).
+         */
         snake.pop();
     } else {
         // caso contrário, não remove o item do array (aumenta de tamanho) e a comida muda para outra posição aleatória
