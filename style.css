@@ -1,11 +1,50 @@
-body {
-    height: 95vh;
-    width: 95vw;
+body{
     display: flex;
     justify-content: center;   
     align-items: center;
-    flex-direction: column;    
+    height: 95vh;
+    background-image: url(img/dark_wall.png);
+}
+#content {
+    display: flex;
+    justify-content: center;   
+    align-items: stretch;
+    flex-direction: row;
+    padding: 30px;
+    border-radius: 20px;    
+    
+    box-shadow: inset 4px 4px 8px rgba(70, 70, 70, .5),
+    inset -4px -4px 8px rgba(0, 0, 0, .5),
+    0px 0px 47px -7px rgba(0,0,0,0.75);
+}
+aside {
+    width: 356px;
+    margin-right: 20px;    
 }
 h1 {
-    color: rgb(44, 139, 44);
+    font-family: 'Squada One', cursive;
+    font-weight: 400;
+    font-size: 4em;
+    margin-top: 0;
+    text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+    /* color: #292929; */
+    background-image: url(img/dark_wall.png);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(90,90,90, .1);
+}
+#content div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 460px;
+    height: 460px;;
+    background-color: lightgreen;
+    border-radius: 5px;
+    box-shadow: 4px 4px 8px rgba(100, 100, 100, .5),
+    -4px -4px 8px rgba(0, 0, 0, .5),
+    inset 0 0 8px rgba(0, 0, 0, .5);
+
+}
+canvas {
+    border: 2px solid green;
 }
