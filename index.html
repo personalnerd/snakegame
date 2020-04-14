@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap&family=VT323&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="style.css">
     
     <script defer src="script.js"></script>    <!-- defer faz o javascript ser carregado no final -->
@@ -13,9 +13,20 @@
 <body>
     <div id="content">    
         <aside>
+            
             <h1>SNAKE GAME!</h1>
+            <div id="score">
+                Score: <span>0</span>
+            </div>
+            <div id="level">
+                Level: <span>0</span>
+            </div>
+            <div id="borderGame">
+                Border: <span>No</span>
+            </div>
+            
         </aside>
-        <div>
+        <div id="jogo">
             <canvas id="snake" width="448" height="448"></canvas>
         </div>
     </div>
