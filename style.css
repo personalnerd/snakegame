@@ -33,15 +33,19 @@ h1 {
     margin: 0 0 40px 0;
     text-align: center;;
     text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
-    /* color: #292929; */
     background-image: url(img/dark_wall.png);
     -webkit-background-clip: text;
     -webkit-text-fill-color: rgba(90,90,90, .1);
+    cursor: default;
 }
-aside div {
+aside div{
+    width: 70%;
+}
+aside div div {
+    display: inline-block;
     font-family: 'VT323', monospace;
     font-size: 1.5em;
-    width: 50%;
+    width: 75%;
     margin-bottom: 20px;
     box-sizing: border-box;
     padding: 10px;
@@ -52,8 +56,25 @@ aside div {
     -4px -4px 8px rgba(0, 0, 0, .5),
     inset 0 0 8px rgba(0, 0, 0, .5);
 }
-aside div span {
+aside div div span {
     float: right;
+}
+aside button {
+    cursor: pointer;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border:none;
+    box-shadow: -2px -2px 2px rgba(255,255,255,.1), 2px 2px 2px rgba(0,0,0,.5);
+    background-image: url(img/dark_wall.png);
+}
+aside button:active {
+    box-shadow: 2px 2px 2px rgba(255,255,255,.1), -2px -2px 2px rgba(0,0,0,.5);
 }
 #jogo {
     display: flex;
@@ -68,6 +89,6 @@ aside div span {
     inset 0 0 8px rgba(0, 0, 0, .5);
 
 }
-canvas {
-    /* border: 2px solid green; */
+canvas.border {
+    border: 2px solid green;
 }

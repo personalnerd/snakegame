@@ -12,6 +12,27 @@ let food = {
     x: Math.floor(Math.random() * 15 + 1) * box,
     y: Math.floor(Math.random() * 15 + 1) * box
 }
+let score = 0;
+let level = 1;
+let border = false;
+
+let btnScore = document.getElementById('btnScore');
+let btnLevel = document.getElementById('btnLevel');
+let btnBorder = document.getElementById('btnBorder');
+
+let spanBorder = document.getElementById('spanBorder');
+
+btnBorder.onclick = function(){
+    if (!border) {
+        border = true;
+        canvas.classList.add('border');
+        spanBorder.innerHTML = 'Yes';
+    } else {
+        border = false;
+        canvas.classList.remove('border');
+        spanBorder.innerHTML = 'No';
+    }
+}
 
 function criarBG() {
     context.fillStyle = 'lightgreen';
@@ -43,20 +64,27 @@ function update(event){
     if(event.keyCode == 40 && direction != "up") direction = "down";
 }
 
+
 function iniciarJogo() {
 
-    // ao chegar no fim do canvas, aparece do outro lado (corrigido bug que deixava a cobra passeando fora do canvas)
-    if(snake[0].x > 15 * box && direction !== "left") snake[0].x = 0;
-    if(snake[0].x < 0 && direction != "right") snake[0].x = 15 * box;
-    if(snake[0].y > 15 * box && direction != "up") snake[0].y = 0;
-    if(snake[0].y < 0 && direction != "down") snake[0].y = 15 * box;
+    if (!border) {
+        // ao chegar no fim do canvas, aparece do outro lado (corrigido bug que deixava a cobra passeando fora do canvas)
+        if(snake[0].x > 15 * box && direction !== "left") snake[0].x = 0;
+        if(snake[0].x < 0 && direction != "right") snake[0].x = 15 * box;
+        if(snake[0].y > 15 * box && direction != "up") snake[0].y = 0;
+        if(snake[0].y < 0 && direction != "down") snake[0].y = 15 * box;
+    } else {
+        //se a posição 0 (cabeça) se chocar com a borda, para o jogo
+        if(snake[0].x > 15 * box) gameOver();
+        if(snake[0].x < 0) gameOver();
+        if(snake[0].y > 15 * box) gameOver();
+        if(snake[0].y < 0) gameOver();
+    }
+    
 
-    //se a posição 0 (cabeça) se chocar com o corpo, ela para o jogo
+    //se a posição 0 (cabeça) se chocar com o corpo, para o jogo
     for (i = 1; i < snake.length; i++){
-        if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
-            clearInterval(jogo);
-            alert('Game Over :(');
-        }
+        if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) gameOver();
     }
 
     criarBG();
@@ -92,6 +120,11 @@ function iniciarJogo() {
     }
 
     snake.unshift(newHead);
+}
+
+function gameOver() {
+    clearInterval(jogo);
+    alert('Game Over :(');
 }
 
 let jogo = setInterval(iniciarJogo, 100);
