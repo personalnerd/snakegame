@@ -21,6 +21,7 @@ let btnLevel = document.getElementById('btnLevel');
 let btnBorder = document.getElementById('btnBorder');
 
 let spanBorder = document.getElementById('spanBorder');
+let spanScore = document.getElementById('spanScore');
 
 btnBorder.onclick = function(){
     if (!border) {
@@ -109,9 +110,12 @@ function iniciarJogo() {
          */
         snake.pop();
     } else {
-        // caso contrário, não remove o item do array (aumenta de tamanho) e a comida muda para outra posição aleatória
+        // caso contrário, não remove o item do array (aumenta de tamanho) e a comida muda para outra posição aleatória        
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
+
+        score++;
+        spanScore.innerHTML = score;
     }
 
     let newHead = {
