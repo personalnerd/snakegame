@@ -14,16 +14,18 @@ let food = {
 }
 let score = 0;
 let level = 1;
+let vel = 150;
 let border = false;
 
 let btnScore = document.getElementById('btnScore');
 let btnLevel = document.getElementById('btnLevel');
 let btnBorder = document.getElementById('btnBorder');
 
+let spanLevel = document.getElementById('spanLevel');
 let spanBorder = document.getElementById('spanBorder');
 let spanScore = document.getElementById('spanScore');
 
-btnBorder.onclick = function(){
+btnBorder.onclick = function(){    
     if (!border) {
         border = true;
         canvas.classList.add('border');
@@ -32,7 +34,24 @@ btnBorder.onclick = function(){
         border = false;
         canvas.classList.remove('border');
         spanBorder.innerHTML = 'No';
+    }    
+}
+
+btnLevel.onclick = function() {    
+    if (level < 10) {
+        level++;
+        vel = vel-12;
+    } else if (level == 10) {
+        level = 1;        
+        vel = 150;        
     }
+    if (level != 10) {
+        spanLevel.innerHTML = level;
+    } else {
+        spanLevel.innerHTML = level+"!";
+    }
+    clearInterval(jogo);
+    jogo = setInterval(iniciarJogo, vel);
 }
 
 function criarBG() {
@@ -66,7 +85,7 @@ function update(event){
 }
 
 
-function iniciarJogo() {
+function iniciarJogo() {    
 
     if (!border) {
         // ao chegar no fim do canvas, aparece do outro lado (corrigido bug que deixava a cobra passeando fora do canvas)
@@ -128,7 +147,7 @@ function iniciarJogo() {
 
 function gameOver() {
     clearInterval(jogo);
-    alert('Game Over :(');
+    alert('Game Over :(');    
 }
 
-let jogo = setInterval(iniciarJogo, 100);
+let jogo = setInterval(iniciarJogo, vel);
