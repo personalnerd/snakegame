@@ -16,6 +16,7 @@ let score = 0;
 let level = 1;
 let vel = 150;
 let border = false;
+let fim = false;
 
 let btnScore = document.getElementById('btnScore');
 let btnLevel = document.getElementById('btnLevel');
@@ -25,33 +26,45 @@ let spanLevel = document.getElementById('spanLevel');
 let spanBorder = document.getElementById('spanBorder');
 let spanScore = document.getElementById('spanScore');
 
+let gameover = document.getElementById('gameover');
+
+btnScore.onclick = function(){
+    if(fim) {
+        window.location.reload();
+    }
+}
+
 btnBorder.onclick = function(){    
-    if (!border) {
-        border = true;
-        canvas.classList.add('border');
-        spanBorder.innerHTML = 'Yes';
-    } else {
-        border = false;
-        canvas.classList.remove('border');
-        spanBorder.innerHTML = 'No';
-    }    
+    if (!fim) {
+        if (!border) {
+            border = true;
+            canvas.classList.add('border');
+            spanBorder.innerHTML = 'Yes';
+        } else {
+            border = false;
+            canvas.classList.remove('border');
+            spanBorder.innerHTML = 'No';
+        }
+    }
 }
 
 btnLevel.onclick = function() {    
-    if (level < 10) {
-        level++;
-        vel = vel-12;
-    } else if (level == 10) {
-        level = 1;        
-        vel = 150;        
+    if (!fim) {
+        if (level < 10) {
+            level++;
+            vel = vel-12;
+        } else if (level == 10) {
+            level = 1;        
+            vel = 150;        
+        }
+        if (level != 10) {
+            spanLevel.innerHTML = level;
+        } else {
+            spanLevel.innerHTML = level+"!";
+        }
+        clearInterval(jogo);
+        jogo = setInterval(iniciarJogo, vel);
     }
-    if (level != 10) {
-        spanLevel.innerHTML = level;
-    } else {
-        spanLevel.innerHTML = level+"!";
-    }
-    clearInterval(jogo);
-    jogo = setInterval(iniciarJogo, vel);
 }
 
 function criarBG() {
@@ -78,10 +91,12 @@ function drawFood() {
 document.addEventListener('keydown', update);
 
 function update(event){
-    if(event.keyCode == 37 && direction != "right") direction = "left";
-    if(event.keyCode == 38 && direction != "down") direction = "up";
-    if(event.keyCode == 39 && direction != "left") direction = "right";
-    if(event.keyCode == 40 && direction != "up") direction = "down";
+    if (!fim) {
+        if(event.keyCode == 37 && direction != "right") direction = "left";
+        if(event.keyCode == 38 && direction != "down") direction = "up";
+        if(event.keyCode == 39 && direction != "left") direction = "right";
+        if(event.keyCode == 40 && direction != "up") direction = "down";
+    }
 }
 
 
@@ -146,8 +161,9 @@ function iniciarJogo() {
 }
 
 function gameOver() {
-    clearInterval(jogo);
-    alert('Game Over :(');    
+    clearInterval(jogo);        // faz o movimento parar
+    fim = true;                 // define que o jogo acabou (para não funcionarem os outros botões)
+    gameover.style.display = "flex";
 }
 
 let jogo = setInterval(iniciarJogo, vel);
